@@ -1020,23 +1020,23 @@ In this exercise, you will use the Azure Cosmos DB Data Explorer in the portal t
 
 2.  Select **Data Explorer** from the menu.
 
-    ![In the Tollbooth - Data Explorer blade, Data Explorer is selected.](media/image75.png 'Tollbooth - Data Explorer blade')
+    ![In the Tollbooth - Data Explorer blade, Data Explorer is selected.](media/85_cosmosdb_step06.png 'Tollbooth - Data Explorer blade - 85_cosmosdb_step06')
 
 3.  Expand the **Processed** collection, then select **Documents**. This will list each of the JSON documents added to the collection.
 
 4.  Select one of the documents to view its contents. The first four properties are ones that were added by your functions. The remaining properties are standard and are assigned by Cosmos DB.
 
-    ![Under Collections, Processed is expanded, and Documents is selected. On the Documents tab, a document is selected, and to the side, the first four properties of the document (fileName, licencePlateText, timeStamp, and exported) are circled.](media/image76.png 'Tollbooth - Data Explorer blade')
+    ![Under Collections, Processed is expanded, and Documents is selected. On the Documents tab, a document is selected, and to the side, the first four properties of the document (fileName, licencePlateText, timeStamp, and exported) are circled.](media/86_cosmosdb_step07.png 'Tollbooth - Data Explorer blade - 86_cosmosdb_step07')
 
 5.  Expand the **NeedsManualReview** collection, then select **Documents**.
 
 6.  Select one of the documents to view its contents. Notice that the filename is provided, as well as a property named "resolved". While this is out of scope for this lab, those properties can be used together to provide a manual process for viewing the photo and entering the license plate.
 
-    ![Under Collections, NeedsManualReview is expanded, and Documents is selected. On the Documents tab, a document is selected, and to the side, the first four properties of the document (fileName, licencePlateText, timeStamp, and resolved) are circled.](media/image77.png 'Tollbooth - Data Explorer blade')
+    ![Under Collections, NeedsManualReview is expanded, and Documents is selected. On the Documents tab, a document is selected, and to the side, the first four properties of the document (fileName, licencePlateText, timeStamp, and resolved) are circled.](media/87_cosmosdb_step08.png'Tollbooth - Data Explorer blade - 87_cosmosdb_step08')
 
 7.  Right-click on the **Processed** collection and select **New SQL Query**.
 
-    ![Under Collections, LicencePlates is expanded, and Processed is selected. From its right-click menu, New SQL Query is selected.](media/image78.png 'Tollbooth - Data Explorer blade')
+    ![Under Collections, LicencePlates is expanded, and Processed is selected. From its right-click menu, New SQL Query is selected.](media/88_cosmosdb_step09.png 'Tollbooth - Data Explorer blade - 88_cosmosdb_step09')
 
 8.  Modify the SQL query to count the number of processed documents that have not been exported:
 
@@ -1046,7 +1046,7 @@ SELECT VALUE COUNT(c.id) FROM c WHERE c.exported = false
 
 9.  Execute the query and observe the results. In our case, we have 1,369 processed documents that need to be exported.
 
-    ![On the Query 1 tab, under Execute Query, the previously defined SQL query displays. Under Results, the number 1369 is highlighted.](media/cosmos-query-results.png 'Query 1 tab')
+    ![On the Query 1 tab, under Execute Query, the previously defined SQL query displays. Under Results, the number 1369 is highlighted.](media/89_cosmosdb_step10.png 'Query 1 tab - 89_cosmosdb_step10')
 
 ## Exercise 6: Create the data export workflow
 
@@ -1068,7 +1068,7 @@ In this exercise, you create a new Logic App for your data export workflow. This
 
 2.  Select **+ Create a resource**, then enter **logic app** into the search box on top. Select **Logic App** from the results.
 
-    ![In the Azure Portal, in the menu, New is selected. In the New blade, logic ap is typed in the search field, and Logic App is selected in the search results.](media/0_logic_app.png 'Azure Portal')
+    ![In the Azure Portal, in the menu, New is selected. In the New blade, logic ap is typed in the search field, and Logic App is selected in the search results.](media/90_logicApp_step00.png 'Azure Portal - 90_logicApp_step00')
 
 3.  Select the **Create** button on the Logic App overview blade.
 
@@ -1082,53 +1082,53 @@ In this exercise, you create a new Logic App for your data export workflow. This
 
     d. Select **Off** underneath Log Analytics.
 
-    ![In the Create logic app blade, fields are set to the previously defined settings.](media/1_logic_app.png 'Create logic app blade')
+    ![In the Create logic app blade, fields are set to the previously defined settings.](media/91_logicApp_step01.png 'Create logic app blade - 91_logicApp_step01')
 
 5.  Click **Create**. Open the Logic App once it has been provisioned.
 
 6.  In the Logic App Designer, scroll through the page until you locate the _Start with a common trigger_ section. Select the **Recurrence** trigger.
 
-    ![The Recurrence tile is selected in the Logic App Designer.](media/image82.png 'Logic App Designer')
+    ![The Recurrence tile is selected in the Logic App Designer.](media/92_logicApp_step02.png 'Logic App Designer - 92_logicApp_step02')
 
 7.  Enter **15** into the **Interval** box, and make sure Frequency is set to **Minute**. This can be set to an hour or some other interval, depending on business requirements.
 
 8.  Select **+ New step**.
 
-    ![Under Recurrence, the Interval field is set to 15, and the + New step button is selected.](media/image83.png 'Logic App Designer Recurrence section')
+    ![Under Recurrence, the Interval field is set to 15, and the + New step button is selected.](media/93_logicApp_step03.png 'Logic App Designer Recurrence section - 93_logicApp_step03')
 
 9.  Enter **Functions** in the filter box, then select the **Azure Functions** connector.
 
-    ![Under Choose an action, Functions is typed in the search box. Under Connectors, Azure Functions is selected.](media/image85.png 'Logic App Designer Choose an action section')
+    ![Under Choose an action, Functions is typed in the search box. Under Connectors, Azure Functions is selected.](media/94_logicApp_step04.png 'Logic App Designer Choose an action section - 94_logicApp_step04')
 
 10. Select your Function App whose name ends in **FunctionApp**, or contains the ExportLicensePlates function.
 
-    ![Under Azure Functions, in the search results list, Azure Functions (TollBoothFunctionApp) is selected.](media/0_logicapp_1.png 'Logic App Designer Azure Functions section')
+    ![Under Azure Functions, in the search results list, Azure Functions (TollBoothFunctionApp) is selected.](media/95_logicApp_step05.png 'Logic App Designer Azure Functions section - 95_logicApp_step05')
 
 11. Select the **ExportLicensePlates** function from the list.
 
-    ![Under Azure Functions, under Actions (2), Azure Functions (ExportLicensePlates) is selected.](media/1_logicapp-add-condition.png 'Logic App Designer Azure Functions section')
+    ![Under Azure Functions, under Actions (2), Azure Functions (ExportLicensePlates) is selected.](media/96_logicApp_step06.png 'Logic App Designer Azure Functions section - 96_logicApp_step06')
 
 12. This function does not require any parameters that need to be sent when it gets called. Select **+ New step**, then search for **condition**. Select the **Condition** Control option from the Actions search result.
 
-    ![Under ExportLicensePlates, the field is blank. Under the + New step button, Add a condition is selected.](media/logicapp-add-condition.png 'Logic App Designer ExportLicensePlates section')
+    ![Under ExportLicensePlates, the field is blank. Under the + New step button, Add a condition is selected.](media/97_logicApp_step07.png 'Logic App Designer ExportLicensePlates section - 97_logicApp_step07')
 
 13. For the **value** field, select the **Status code** parameter. Make sure the operator is set to **is equal to**, then enter **200** in the second value field.
 
     > **Note**: This evaluates the status code returned from the ExportLicensePlates function, which will return a 200 code when license plates are found and exported. Otherwise, it sends a 204 (NoContent) status code when no license plates were discovered that need to be exported. We will conditionally send an email if any response other than 200 is returned.
 
-    ![The first Condition field displays Status code. The second, drop-down menu field displays is equal to, and the third field is set to 200.](media/logicapp-condition.png 'Condition fields')
+    ![The first Condition field displays Status code. The second, drop-down menu field displays is equal to, and the third field is set to 200.](media/98_logicApp_step08.png 'Condition fields - 98_logicApp_step08')
 
 14. We will ignore the If true condition because we don't want to perform an action if the license plates are successfully exported. Select **Add an action** within the **If false** condition block.
 
-    ![Under the Conditions field is an If true (green checkmark) section, and an if false (red x) section. In the If false section, Add an action is selected.](media/logicapp-condition-false-add.png 'Logic App Designer Condition fields if true/false ')
+    ![Under the Conditions field is an If true (green checkmark) section, and an if false (red x) section. In the If false section, Add an action is selected.](media/99_logicApp_step09.png 'Logic App Designer Condition fields if true/false - 99_logicApp_step09')
 
 15. Enter **Send an email** in the filter box, then select the **Send an email** action.
 
-    ![From the Actions list, Office 365 Outlook (Send an email) is selected.](media/logicapp-send-email.png 'Office 365 Outlook Actions list')
+    ![From the Actions list, Office 365 Outlook (Send an email) is selected.](media/100_logicApp_step10.png 'Office 365 Outlook Actions list - 100_logicApp_step10')
 
 16. Click **Sign in** and sign into your Office 365 Outlook account.
 
-    ![In the Office 365 Outlook - Send an email prompt, the Sign in button is selected.](media/image93.png 'Office 365 Outlook Sign in prompt')
+    ![In the Office 365 Outlook - Send an email prompt, the Sign in button is selected.](media/101_logicApp_step11.png 'Office 365 Outlook Sign in prompt - 101_logicApp_step11')
 
 17. In the Send an email form, provide the following values:
 
@@ -1138,21 +1138,21 @@ In this exercise, you create a new Logic App for your data export workflow. This
 
     c. Enter a message into the **body**, and select the **Status code** from the ExportLicensePlates function so that it is added to the email body.
 
-    ![Under Send an email, fields are set to the previously defined settings. ](media/image94.png 'Logic App Designer , Send an email fields')
+    ![Under Send an email, fields are set to the previously defined settings. ](media/102_logicApp_step12.png 'Logic App Designer , Send an email fields - 102_logicApp_step12')
 
 18. Select **Save** in the tool bar to save your Logic App.
 
 19. Select **Run** to execute the Logic App. You should start receiving email alerts because the license plate data is not being exported. This is because we need to finish making changes to the ExportLicensePlates function so that it can extract the license plate data from Azure Cosmos DB, generate the CSV file, and upload it to Blob storage.
 
-    ![The Run button is selected on the Logic Apps Designer blade toolbar.](media/image95.png 'Logic Apps Designer blade')
+    ![The Run button is selected on the Logic Apps Designer blade toolbar.](media/103_logicApp_step13.png 'Logic Apps Designer blade - 103_logicApp_step13')
 
 20. While in the Logic Apps Designer, you will see the run result of each step of your workflow. A green checkmark is placed next to each step that successfully executed, showing the execution time to complete. This can be used to see how each step is working, and you can select the executed step and see the raw output.
 
-    ![In the Logic App Designer, green check marks display next to Recurrence, ExportLicensePlates, Condition, and Send an email.](media/image96.png 'Logic App Designer ')
+    ![In the Logic App Designer, green check marks display next to Recurrence, ExportLicensePlates, Condition, and Send an email.](media/104_logicApp_step14.png 'Logic App Designer - 104_logicApp_step14')
 
 21. The Logic App will continue to run in the background, executing every 15 minutes (or whichever interval you set) until you disable it. To disable the app, go to the **Overview** blade for the Logic App and select the **Disable** button on the taskbar.
 
-    ![The Disable button is selected on the TollBoothLogic blade top menu.](media/image97.png 'TollBoothLogic blade')
+    ![The Disable button is selected on the TollBoothLogic blade top menu.](media/105_logicApp_step15.png 'TollBoothLogic blade - 105_logicApp_step15')
 
 ## Exercise 7: Configure continuous deployment for your Function App
 
@@ -1174,17 +1174,17 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 
 2.  From the top corner of any page (once signed in), select the **+** menu item, then select **New repository**.
 
-    ![From the Plus icon drop-down menu, New repository is selected.](media/image98.png 'Plus icon drop-down menu')
+    ![From the Plus icon drop-down menu, New repository is selected.](media/106_git_step00.png 'Plus icon drop-down menu - 106_git_step00')
 
 3.  Select your owner account, enter a unique **repository name**, make sure it is set to **Public**, and then select **Create repository**.
 
     > **Note**: When selecting **Public**, any connection information will be published to the GitHub repo. Ensure you follow the delete steps at the end of this to remove any sensitive information.
 
-    ![In the New Repository section, the Repository name field is set to serverless-architecture-lab, and the Public radio button is selected. At the bottom, the Create repository button is selected.](media/image99.png 'New Repository section')
+    ![In the New Repository section, the Repository name field is set to serverless-architecture-lab, and the Public radio button is selected. At the bottom, the Create repository button is selected.](media/107_git_step01.png 'New Repository section - 107_git_step01')
 
 4.  On your new repository page, copy the **HTTPS git path** to your clipboard, using the **button** provided.
 
-    ![On the Repository page, the HTTPS git path copy to clipboard button is selected.](media/image100.png 'Repository page')
+    ![On the Repository page, the HTTPS git path copy to clipboard button is selected.](media/108_git_step02.png 'Repository page - 108_git_step02')
 
 ### Task 2: Add GitHub repository to your Visual Studio solution
 
@@ -1192,23 +1192,23 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 
 2.  Right-click the **TollBooth** solution in Solution Explorer, then select **Add Solution to Source Control**.
 
-    ![In Solution Explorer, TollBooth solution is selected. From its right-click menu, Add Solution to Source Control is selected.](media/vs-add-to-source-control.png 'Solution Explorer')
+    ![In Solution Explorer, TollBooth solution is selected. From its right-click menu, Add Solution to Source Control is selected.](media/109_visualStudio14.png 'Solution Explorer - 109_visualStudio14')
 
 3.  Select **View** in Visual Studio's top menu, then select **Team Explorer**.
 
-    ![The View, Team Explorer menu item is highlighted.](media/vs-view-team-explorer.png 'Visual Studio')
+    ![The View, Team Explorer menu item is highlighted.](media/110_visualStudio15.png 'Visual Studio - 110_visualStudio15')
 
 4.  Click **Sync** under the Project section of the Team Explorer pane.
 
-    ![The Sync button is highlighted.](media/vs-sync-button.png 'Team Explorer')
+    ![The Sync button is highlighted.](media/111_visualStudio16.png 'Team Explorer - 111_visualStudio16')
 
 5.  Select the **Publish Git Repo** button, then paste the git URL for your new repository you copied from GitHub. Finally, select **Publish**.
 
-    ![In the Team Explorer - Synchronization window, the Publish Git Repo button is selected, and in the field below, the copied URL displays.](media/image104.png 'Team Explorer - Synchronization')
+    ![In the Team Explorer - Synchronization window, the Publish Git Repo button is selected, and in the field below, the copied URL displays.](media/112_visualStudio17.png 'Team Explorer - Synchronization - 112_visualStudio17')
 
 6.  Refresh your GitHub repository page in your browser. You should see that the project files have been added. Navigate to the **TollBooth** folder of your repo. Notice that the local.settings.json file has not been uploaded. That's because the .gitignore file of the TollBooth project explicitly excludes that file from the repository, making sure you don't accidentally share your application secrets.
 
-    ![On the GitHub Repository page for serverless-architecture-lab, on the Code tab, project files display.](media/image105.png 'GitHub Repository page')
+    ![On the GitHub Repository page for serverless-architecture-lab, on the Code tab, project files display.](media/113_git_step03.png 'GitHub Repository page - 113_git_step03')
 
 ### Task 3: Configure your Function App to use your GitHub repository for continuous deployment
 
@@ -1216,21 +1216,21 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 
 2.  Select **Deployment Center** underneath the **Platform features** tab.
 
-    ![In the TollBoothFunctionApp blade, on the Platform features tab, under Code Deployment, Deployment Center is selected.](media/functionapp-deployment-center-link.png 'TollBoothFunctionApp blade')
+    ![In the TollBoothFunctionApp blade, on the Platform features tab, under Code Deployment, Deployment Center is selected.](media/114_git_step04.png 'TollBoothFunctionApp blade - 114_git_step04')
 
 3.  Select **GitHub** in the **Deployment Center** blade. Enter your GitHub credentials if prompted. Select **Continue**.
 
-    ![In the Deployment Center blade, the GitHub icon is selected.](media/functionapp-dc-github.png 'Deployment Center blade')
+    ![In the Deployment Center blade, the GitHub icon is selected.](media/115_git_step05.png 'Deployment Center blade - 115_git_step05')
 
 4.  Select **App Service Kudu build server**, then select **Continue**.
 
-    ![Under the Build Provider step, App Service Kudu build server is selected.](media/functionapp-dc-build-provider.png 'Deployment Center blade')
+    ![Under the Build Provider step, App Service Kudu build server is selected.](media/116_git_step06.png 'Deployment Center blade - 116_git_step06')
 
 5.  **Choose your organization**.
 
 6.  Choose your new repository under **Choose project**. Make sure the **master branch** is selected.
 
-    ![Fields in the Deployment option blade set to the following settings: Choose your organization, Personal; Choose repository, serverless-architecture-lab; Choose branch, master.](media/functionapp-dc-configure.png 'Deployment Center blade')
+    ![Fields in the Deployment option blade set to the following settings: Choose your organization, Personal; Choose repository, serverless-architecture-lab; Choose branch, master.](media/117_git_step07.png 'Deployment Center blade - 117_git_step07')
 
 7.  Select **Continue**.
 
@@ -1238,7 +1238,7 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 
 9.  After continuous deployment is configured, all file changes in your deployment source are copied to the function app and a full site deployment is triggered. The site is redeployed when files in the source are updated.
 
-    ![The Deployment Center is shown with a pending build.](media/functionapp-dc.png 'Function App Deployment Center')
+    ![The Deployment Center is shown with a pending build.](media/118_git_step08.png 'Function App Deployment Center - 118_git_step08')
 
 ### Task 4: Finish your ExportLicensePlates function code and push changes to GitHub to trigger deployment
 
@@ -1246,7 +1246,7 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 
 2.  From the Visual Studio **View** menu, select **Task List**.
 
-    ![Task List is selected from the Visual Studio View menu.](media/image37.png 'Visual Studio View menu')
+    ![Task List is selected from the Visual Studio View menu.](media/119_git_step09.png 'Visual Studio View menu - 119_git_step09')
 
 3.  There you will see a list of TODO tasks, where each task represents one line of code that needs to be completed.
 
@@ -1278,25 +1278,25 @@ await blob.UploadFromStreamAsync(stream);
 
 10. Right-click the **TollBooth** project in Solution Explorer, then select **Commit...** under the **Source Control** menu item.
 
-    ![In Solution Explorer, TollBooth is selected. From its right-click menu, Source Control and Commit are both selected.](media/image101.png 'Solution Explorer')
+    ![In Solution Explorer, TollBooth is selected. From its right-click menu, Source Control and Commit are both selected.](media/120_git_step10.png 'Solution Explorer - 120_git_step10')
 
 11. Enter a commit message, then select **Commit All**.
 
-    ![In the Team Explorer - Changes window, "Finished the ExportLicensePlates function" displays in the message box, and the Commit All button is selected.](media/image110.png 'Team Explorer - Changes window')
+    ![In the Team Explorer - Changes window, "Finished the ExportLicensePlates function" displays in the message box, and the Commit All button is selected.](media/121_git_step11.png 'Team Explorer - Changes window - 121_git_step11')
 
 12. After committing, select the **Sync** link. This will allow us to add the remote GitHub repository.
 
-    ![Under Team Explorer - Changes, in the informational message Commit 02886e85 created locally. Sync to share, the Sync link is selected.](media/image103.png 'Team Explorer - Changes window')
+    ![Under Team Explorer - Changes, in the informational message Commit 02886e85 created locally. Sync to share, the Sync link is selected.](media/122_git_step12.png 'Team Explorer - Changes window - 122_git_step12')
 
 13. Select the **Sync** button on the **Synchronization** step.
 
-    ![Under Synchronization in the Team Explorer - Synchronization window, the Sync link is selected.](media/image111.png 'Team Explorer - Synchronization window')
+    ![Under Synchronization in the Team Explorer - Synchronization window, the Sync link is selected.](media/123_git_step13.png 'Team Explorer - Synchronization window - 123_git_step13')
 
     Afterward, you should see a message stating that the incoming and outgoing commits were successfully synchronized.
 
 14. Go back to Deployment Center for your Function App in the portal. You should see an entry for the deployment kicked off by this last commit. Check the timestamp on the message to verify that you are looking at the latest one.
 
-    ![The latest deployment is displayed in the Deployment Center.](media/functionapp-dc-latest.png 'Deployment Center')
+    ![The latest deployment is displayed in the Deployment Center.](media/124_git_step14.png 'Deployment Center - 124_git_step14')
 
 ## Exercise 8: Rerun the workflow and verify data export
 
@@ -1310,15 +1310,15 @@ With the latest code changes in place, run your Logic App and verify that the fi
 
 2.  From the **Overview** blade, select **Enable**.
 
-    ![In the TollBoothLogic, the Enable enable button is selected.](media/image113.png 'TollBoothLogic blade')
+    ![In the TollBoothLogic, the Enable enable button is selected.](media/125_logicApp_step16.png  'TollBoothLogic blade - 125_logicApp_step16')
 
 3.  Now select **Run Trigger**, then select **Recurrence** to immediately execute your workflow.
 
-    ![In the TollBoothLogic blade, Run Trigger / Recurrence is selected.](media/image114.png 'TollBoothLogic blade')
+    ![In the TollBoothLogic blade, Run Trigger / Recurrence is selected.](media/126_logicApp_step17.png  'TollBoothLogic blade - 126_logicApp_step17')
 
 4.  Select the **Refresh** button next to the Run Trigger button to refresh your run history. Select the latest run history item. If the expression result for the condition is **true**, then that means the CSV file should've been exported to Blob storage. Be sure to disable the Logic App so it doesn't keep sending you emails every 15 minutes. Please note that it may take longer than expected to start running, in some cases.
 
-    ![In Logic App Designer, in the Condition section, under Inputs, true is circled.](media/image115.png 'Logic App Designer ')
+    ![In Logic App Designer, in the Condition section, under Inputs, true is circled.](media/127_logicApp_step18.png  'Logic App Designer - 127_logicApp_step18')
 
 ### Task 2: View the exported CSV file
 
@@ -1326,23 +1326,23 @@ With the latest code changes in place, run your Logic App and verify that the fi
 
 2.  In the Overview pane of your storage account, select **Blobs**.
 
-    ![Under Services, Blobs is selected.](media/image116.png 'Services section')
+    ![Under Services, Blobs is selected.](media/128_logicApp_step19.png  'Services section - 128_logicApp_step19')
 
 3.  Select the **export** container.
 
-    ![Export is selected under Name.](media/image117.png 'Export option')
+    ![Export is selected under Name.](media/129_logicApp_step20.png  'Export option - 129_logicApp_step20')
 
 4.  You should see at least one recently uploaded CSV file. Select the filename to view its properties.
 
-    ![In the Export blade, under name, a .csv file is selected.](media/blob-export.png 'Export blade')
+    ![In the Export blade, under name, a .csv file is selected.](media/130_logicApp_step21.png  'Export blade - 130_logicApp_step21')
 
 5.  Select **Download** in the blob properties window.
 
-    ![In the Blob properties blade, the Download button is selected.](media/blob-download.png 'Blob properties blade')
+    ![In the Blob properties blade, the Download button is selected.](media/131_logicApp_step21.png  'Blob properties blade - 131_logicApp_step21')
 
     The CSV file should look similar to the following:
 
-    ![A CSV file displays with the following columns: FileName, LicensePlateText, TimeStamp, and LicensePlateFound.](media/csv.png 'CSV file')
+    ![A CSV file displays with the following columns: FileName, LicensePlateText, TimeStamp, and LicensePlateFound.](media/132_logicApp_step22.png  'CSV file - 132_logicApp_step22')
 
 6.  The ExportLicensePlates function updates all of the records it exported by setting the exported value to true. This makes sure that only new records since the last export are included in the next one. Verify this by re-executing the script in Azure Cosmos DB that counts the number of documents in the Processed collection where exported is false. It should return 0 unless you've subsequently uploaded new photos.
 
